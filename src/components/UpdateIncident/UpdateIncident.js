@@ -13,7 +13,7 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
 } from "reactstrap";
 import { useCookies } from "react-cookie";
 import Role from "../../helpers/role";
@@ -38,6 +38,7 @@ function UpdateIncident() {
   useEffect(() => {
     console.log("component mounted!");
     getAllIncidents();
+    getRole();
   }, []);
 
   const getAllIncidents = async () => {
@@ -65,6 +66,7 @@ function UpdateIncident() {
   };
 
   const setResolved = async (incident) => {
+    console.log(role);
     // only emergency staff can resolve indidents.
     if (role === Role.EmergencyStaff) {
       let incidentAtDestination = incident;
@@ -136,12 +138,11 @@ function UpdateIncident() {
       </Container>
 
       <Modal isOpen={modal} toggle={togglePopup}>
-        <ModalHeader toggle={togglePopup}>Unable To Resolve Incident.</ModalHeader>
-        <ModalBody>
-          Permission Denied.
-        </ModalBody>
+        <ModalHeader toggle={togglePopup}>
+          Unable To Resolve Incident.
+        </ModalHeader>
+        <ModalBody>Permission Denied.</ModalBody>
       </Modal>
-
     </div>
   );
 }
